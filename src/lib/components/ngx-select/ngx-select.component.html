@@ -1,1 +1,36 @@
-<ngx-select-children></ngx-select-children>
+<button type="button" class="btn btn-primary {{ toggleBtnClass }}" (click)="animateToggle()">
+    <span class="toggleLabel mr-2">{{ toggleButtonLabel }}</span>
+    <fa-icon
+        [icon]="faCaretRight"
+        class="d-inline-block"
+        [ngClass]="{ open: state === 'open' }"
+    ></fa-icon>
+</button>
+
+<ul
+    class="toggle-content list-group {{ toggleContentClass }}"
+    [ngClass]="{ open: state === 'open' }"
+>
+    <li class="px-3 py-0">
+        <div class="row">
+            <div class="col-12">
+                <input
+                    name="name"
+                    type="text"
+                    placeholder="{{ placeholder }}"
+                    class="form-control mt-2 mb-2"
+                />
+            </div>
+            <div class="divider dropdown-divider col-12"></div>
+        </div>
+    </li>
+    <ngx-select-children></ngx-select-children>
+    <!-- <ngx-multiselect-children
+      *ngFor="let item of items"
+      [filter]="filter.name"
+      [isFirstLevel]="true"
+      (itemSelected)="childSelected($event)"
+      [includeContainer]="includeContainer"
+      [parentItem]="item"
+  ></ngx-multiselect-children> -->
+</ul>
