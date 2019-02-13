@@ -8,8 +8,8 @@ import {
     QueryList,
     OnChanges
 } from '@angular/core';
-import { Item } from 'src/lib/models/item.model';
-import { ItemSelectedEvent } from 'src/lib/models/item-selected-event-model';
+import { Item } from '../../models/item.model';
+import { ItemSelectedEvent } from '../../models/item-selected-event-model';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
