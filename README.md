@@ -1,27 +1,202 @@
 # NgxSelect
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.3.
+Angular recursive select tree
 
-## Development server
+-   [What is It ?](#what-is-it-?)
+-   [Installation](#installation)
+-   [Usage](#usage)
+-   [Basic](#basic)
+-   [Configuration](#configuration)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## What is it ?
 
-## Code scaffolding
+NgxSelect is a recursive select tree for Angular 2+.
+You can use the research field for find any item in the list.
+NgxSelect can be configured for changing button's label and css classes.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installation
 
-## Build
+```shell
+npm install @zokelion/ngx-select --save
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```
 
-## Running unit tests
+## Usage
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Basic
 
-## Running end-to-end tests
+NgxSelect generate a tree based on an list of items.
+the component should be declared in your html code like this :
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```html
+<ngx-multiselect
+    [items]="items"
+    (itemSelectedEvent)="itemSelected($event)"
+    [defaultToggleButtonLabel]="'No Items Selected'"
+    [placeholder]="'Search Items'"
+    [toggleBtnClass]="'w-75'"
+    [toggleContentClass]="'w-100'"
+></ngx-multiselect>
+```
 
-## Further help
+This is a simple interface that describes any parameters for a multiSelect component.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+| Name                     | Type              | required | Description                                                                                                                              | Default             |
+| ------------------------ | ----------------- | :------: | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| (itemSelectedEvent)      | ItemSelectedEvent |    ✔️    | function who was called by the event for getting the list of selected items, in the example below the function was called itemSelected() | NO                  |
+| items                    | item[]            |    ❌    | parameter item list                                                                                                                      | []                  |
+| defaultToggleButtonLabel | string            |    ❌    | label of toggle button in case of none items are selected                                                                                | 'No Items Selected' |
+| placeholder              | string            |    ❌    | placeholder of research input                                                                                                            | 'Search Items'      |
+| toggleBtnClass           | string            |    ❌    | input for your custom css classes on the toggle button                                                                                   | 'w-75'              |
+| toggleContentClass       | string            |    ❌    | input for your custom css classes on the content of the toggle                                                                           | 'w-100'             |
+
+In order to use the event class import it in your component and declare a new function in your component like this :
+
+```typescript
+    // import to be able to use the event
+    import { ItemSelectedEvent } from '@zokelion/ngx-select/models/item-selected-event.model';
+    // import this model for the type of your list
+    import { Item } from '@zokelion/ngx-select/models/item.model';
+
+    // function for getting and using the list
+    public itemSelected(eventItem: ItemSelectedEvent): void {
+        this.selectedItems = eventItem.selectedItems;
+    }
+```
+
+For the generation of the tree the list must be composed of items based on this model :
+
+```typescript
+export class Item {
+    id?: number;
+    name: string;
+    isSelected: boolean;
+    children: Item[];
+}
+```
+
+Detail of Item property :
+
+| Name       | Type              | required | Description                                                 |
+| ---------- | ----------------- | :------: | ----------------------------------------------------------- |
+| id         | ItemSelectedEvent |    ❌    | item.id is optionnal but it is usefull when you use an api. |
+| name       | string            |    ✔️    | name of item                                                |
+| isSelected | boolean           |    ✔️    | indicates weither or not this item is ticked.               |
+| children   | item[]            |    ✔️    | childrens of the item                                       |
+
+Example of items list:
+
+```typescript
+// this list is an example
+items: Item[] = [{
+            id: 1,
+            name: 'World',
+            isSelected: false,
+            children: [
+                {
+                    id: 2,
+                    name: 'America',
+                    isSelected: false,
+                    children: [
+                        {
+                            id: 3,
+                            name: 'Canada',
+                            isSelected: false,
+                            children: []
+                        },
+                        {
+                            id: 4,
+                            name: 'United-States',
+                            isSelected: false,
+                            children: [
+                                {
+                                    id: 14,
+                                    name: 'Arizona',
+                                    isSelected: false,
+                                    children: []
+                                },
+                                {
+                                    id: 15,
+                                    name: 'Washington',
+                                    isSelected: false,
+                                    children: []
+                                }
+                            ]
+                        },
+                        {
+                            id: 5,
+                            name: 'Mexico',
+                            isSelected: false,
+                            children: []
+                        }
+                    ]
+                },
+                {
+                    id: 6,
+                    name: 'Europe',
+                    isSelected: false,
+                    children: [
+                        {
+                            id: 7,
+                            name: 'France',
+                            isSelected: false,
+                            children: []
+                        },
+                        {
+                            id: 8,
+                            name: 'Deutschland',
+                            isSelected: false,
+                            children: []
+                        }
+                    ]
+                },
+                {
+                    id: 9,
+                    name: 'Asia',
+                    isSelected: false,
+                    children: [
+                        {
+                            id: 10,
+                            name: 'China',
+                            isSelected: false,
+                            children: []
+                        },
+                        {
+                            id: 11,
+                            name: 'Japan',
+                            isSelected: false,
+                            children: []
+                        }
+                    ]
+                },
+                {
+                    id: 12,
+                    name: 'Oceania',
+                    isSelected: false,
+                    children: [
+                        {
+                            id: 13,
+                            name: 'Australia',
+                            isSelected: false,
+                            children: []
+                        }
+                    ]
+                }
+            ]
+        }];
+```
+
+### Configuration
+
+Labels can be customized depending on your language. We're using English by default.
+You can use your custom css classes on this component, by default we used the bootstrap's classes 'w-75' on the toggle button and 'w-100' on the toggled content.
+The params have default value but the following params can be customized :
+
+```html
+<ngx-multiselect
+    [defaultToggleButtonLabel]="'No Items Selected'"
+    [placeholder]="'Search Items'"
+    [toggleBtnClass]="'w-75'"
+    [toggleContentClass]="'w-100'"
+></ngx-multiselect>
+```

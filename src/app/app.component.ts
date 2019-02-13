@@ -112,7 +112,6 @@ export class AppComponent implements OnInit {
         });
     }
     public itemSelected(eventItem: ItemSelectedEvent): void {
-        console.log(eventItem);
         this.selectedItem = eventItem.selectedItem;
     }
 }
