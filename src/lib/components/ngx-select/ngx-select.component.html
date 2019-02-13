@@ -17,6 +17,7 @@
                 <input
                     name="name"
                     type="text"
+                    [(ngModel)]="filter.name"
                     placeholder="{{ placeholder }}"
                     class="form-control mt-2 mb-2"
                 />
@@ -24,13 +25,11 @@
             <div class="divider dropdown-divider col-12"></div>
         </div>
     </li>
-    <ngx-select-children></ngx-select-children>
-    <!-- <ngx-multiselect-children
-      *ngFor="let item of items"
-      [filter]="filter.name"
-      [isFirstLevel]="true"
-      (itemSelected)="childSelected($event)"
-      [includeContainer]="includeContainer"
-      [parentItem]="item"
-  ></ngx-multiselect-children> -->
+    <ngx-select-children
+        *ngFor="let item of items"
+        [filter]="filter.name"
+        (itemSelected)="itemSelected($event)"
+        [item]="item"
+    >
+    </ngx-select-children>
 </ul>
