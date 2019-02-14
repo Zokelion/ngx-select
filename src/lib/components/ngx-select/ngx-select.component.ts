@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ElementRef, EventEmitter, Output } from '@angular/core';
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
 import { Item } from '../../models/item.model';
-import { ItemSelectedEvent } from '../../models/item-selected-event-model';
+import { ItemSelectedEvent } from '../../models/item-selected-event.model';
 
 @Component({
     // tslint:disable-next-line:component-selector

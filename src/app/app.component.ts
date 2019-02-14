@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/lib/models/item.model';
-import { ItemSelectedEvent } from 'src/lib/models/item-selected-event-model';
+import { ItemSelectedEvent } from 'src/lib/models/item-selected-event.model';
 
 @Component({
     selector: 'app-root',
