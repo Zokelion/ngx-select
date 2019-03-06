@@ -24,12 +24,14 @@ export class NgxSelectComponent implements OnInit {
     @Input()
     public placeholder = 'Search Items';
     @Input()
-    public toggleBtnClass = 'w-75';
+    public toggleBtnClass = 'btn-primary w-75';
     @Input()
     public toggleContentClass = 'w-100';
     public filter: any = { id: null, name: '', isSelected: false };
     @Input()
     public parentSelectable = false;
+    @Input()
+    public enableAnimations = true;
     @Output()
     public itemSelectedEvent: EventEmitter<ItemSelectedEvent> = new EventEmitter<
         ItemSelectedEvent
