@@ -188,6 +188,19 @@ items: Item[] = [{
         }];
 ```
 
+If you need to reset the select tree with no selected value you can use @ViewChild and call the reset function in your component.
+
+```typescript
+    // first declare your viewchild
+    @ViewChild(NgxSelectComponent)
+    ngxSelectComponent: NgxSelectComponent;
+
+    // then call reset function in your component
+    resetNgxSelect() {
+      this.ngxSelectComponent.reset();
+    }
+```
+
 ### Configuration
 
 Labels can be customized depending on your language. We're using English by default.

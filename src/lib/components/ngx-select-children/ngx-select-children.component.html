@@ -16,7 +16,7 @@
             <ngx-select-children
                 *ngFor="let item of item.children"
                 [filter]="filter"
-                (itemSelected)="selectedItem($event)"
+                (itemSelected)="childClicked($event)"
                 [item]="item"
                 [parentSelectable]="parentSelectable"
             ></ngx-select-children>

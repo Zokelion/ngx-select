@@ -66,9 +66,11 @@ export class NgxSelectChildrenComponent implements OnInit, OnChanges {
             // if item is already selected we unselected it
             if (this.selected.isSelected) {
                 this.selected.isSelected = false;
+                this.keep(this.selected);
                 this.itemSelected.emit({ selectedItem: null });
             } else {
                 item.isSelected = true;
+                this.keep(this.selected);
                 this.itemSelected.emit({ selectedItem: item });
             }
         }
@@ -76,7 +78,7 @@ export class NgxSelectChildrenComponent implements OnInit, OnChanges {
 
     public keep(keeped: Item): void {
         // on click on item we keep this selected and unselected all of the others
-        if (this.item.name !== keeped.name) {
+        if (this.item !== keeped) {
             this.item.isSelected = false;
         }
         this.children.forEach(child => {
@@ -84,7 +86,7 @@ export class NgxSelectChildrenComponent implements OnInit, OnChanges {
         });
     }
 
-    public selectedItem(eventItem: ItemSelectedEvent): void {
+    public childClicked(eventItem: ItemSelectedEvent): void {
         if (eventItem.selectedItem && eventItem.selectedItem.isSelected) {
             this.keep(eventItem.selectedItem);
         }

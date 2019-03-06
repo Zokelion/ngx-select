@@ -66,7 +66,24 @@ export class NgxSelectComponent implements OnInit {
         }
     }
 
-    public itemSelected(eventItem: ItemSelectedEvent): void {
+    public reset(currentItems?: Item[]): void {
+        if (!currentItems) {
+            currentItems = this.items;
+        }
+        currentItems.forEach(item => {
+            item.isSelected = false;
+            if (item.children.length > 0) {
+                this.reset(item.children);
+            }
+        });
+        this.selected = null;
+        this.setLabel();
+        const event: ItemSelectedEvent = new ItemSelectedEvent();
+        event.selectedItem = this.selected;
+        this.itemSelectedEvent.emit(event);
+    }
+
+    public childClicked(eventItem: ItemSelectedEvent): void {
         this.selected = eventItem.selectedItem;
         //restore false value for not selected items
         this.items.forEach(item => {
