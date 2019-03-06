@@ -28,7 +28,8 @@ export class NgxSelectComponent implements OnInit {
     @Input()
     public toggleContentClass = 'w-100';
     public filter: any = { id: null, name: '', isSelected: false };
-
+    @Input()
+    public parentSelectable = false;
     @Output()
     public itemSelectedEvent: EventEmitter<ItemSelectedEvent> = new EventEmitter<
         ItemSelectedEvent

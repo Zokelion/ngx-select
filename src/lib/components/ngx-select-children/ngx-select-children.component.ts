@@ -26,9 +26,9 @@ export class NgxSelectChildrenComponent implements OnInit, OnChanges {
     @Input()
     isFirstLevel: boolean;
     @Input()
-    includeContainer: boolean;
-    @Input()
     item: Item;
+    @Input()
+    public parentSelectable = false;
     @Output()
     itemSelected: EventEmitter<ItemSelectedEvent> = new EventEmitter<ItemSelectedEvent>();
     @ViewChildren(NgxSelectChildrenComponent) children: QueryList<NgxSelectChildrenComponent>;
@@ -62,13 +62,15 @@ export class NgxSelectChildrenComponent implements OnInit, OnChanges {
 
     public itemClicked(item: Item): void {
         this.selected = item;
-        // if item is already selected we unselected it
-        if (this.selected.isSelected) {
-            this.selected.isSelected = false;
-            this.itemSelected.emit({ selectedItem: null });
-        } else {
-            item.isSelected = true;
-            this.itemSelected.emit({ selectedItem: item });
+        if (this.parentSelectable || item.children.length === 0) {
+            // if item is already selected we unselected it
+            if (this.selected.isSelected) {
+                this.selected.isSelected = false;
+                this.itemSelected.emit({ selectedItem: null });
+            } else {
+                item.isSelected = true;
+                this.itemSelected.emit({ selectedItem: item });
+            }
         }
     }
 

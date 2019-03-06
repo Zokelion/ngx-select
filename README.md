@@ -36,6 +36,7 @@ the component should be declared in your html code like this :
     [placeholder]="'Search Items'"
     [toggleBtnClass]="'w-75'"
     [toggleContentClass]="'w-100'"
+    [parentSelectable]="false"
 ></ngx-select>
 ```
 
@@ -49,6 +50,7 @@ This is a simple interface that describes any parameters for a select component.
 | placeholder              | string            |    ❌    | placeholder of research input                                                                                                            | 'Search Items'      |
 | toggleBtnClass           | string            |    ❌    | input for your custom css classes on the toggle button                                                                                   | 'w-75'              |
 | toggleContentClass       | string            |    ❌    | input for your custom css classes on the content of the toggle                                                                           | 'w-100'             |
+| parentSelectable         | boolean           |    ❌    | parameter who define if parent item are selectable                                                                                       | false               |
 
 In order to use the event class import it in your component and declare a new function in your component like this :
 
@@ -198,5 +200,6 @@ The params have default value but the following params can be customized :
     [placeholder]="'Search Items'"
     [toggleBtnClass]="'w-75'"
     [toggleContentClass]="'w-100'"
+    [parentSelectable]="false"
 ></ngx-select>
 ```
